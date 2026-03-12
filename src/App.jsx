@@ -15,6 +15,12 @@ export default function App() {
 
   const discounts = [20, 30, 40, 50];
 
+  const instagramUrl =
+    "https://www.instagram.com/sharkfit_fitnessclub?igsh=MXVrcTk5NGtweTZwYg%3D%3D";
+  const locationUrl =
+    "https://www.google.com/maps/place/Shark+Fit+Gym/@29.8445423,31.3292541,17z/data=!3m1!4b1!4m6!3m5!1s0x145837002c223e77:0xf7c35a34d13a641a!8m2!3d29.8445423!4d31.3292541!16s%2Fg%2F11mdsyjhwz?entry=ttu&g_ep=EgoyMDI2MDMwOS4wIKXMDSoASAFQAw%3D%3D";
+  const gymPhone = "01060106402";
+
   const normalizeLocalEgyptPhone = (value) => {
     return value.replace(/\D/g, "").slice(0, 10);
   };
@@ -135,6 +141,30 @@ export default function App() {
                   {loading ? "Checking..." : "Continue to Spin"}
                 </button>
               </form>
+
+              <div className="gymInfo">
+                <a
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="infoBtn"
+                >
+                  Instagram
+                </a>
+
+                <a
+                  href={locationUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="infoBtn"
+                >
+                  Location
+                </a>
+
+                <a href={`tel:${gymPhone}`} className="infoBtn">
+                  Call: {gymPhone}
+                </a>
+              </div>
             </>
           )}
 
@@ -175,6 +205,30 @@ export default function App() {
               >
                 {isSpinning ? "Spinning..." : "SPIN NOW"}
               </button>
+
+              <div className="gymInfo">
+                <a
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="infoBtn"
+                >
+                  Instagram
+                </a>
+
+                <a
+                  href={locationUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="infoBtn"
+                >
+                  Location
+                </a>
+
+                <a href={`tel:${gymPhone}`} className="infoBtn">
+                  Call: {gymPhone}
+                </a>
+              </div>
             </div>
           )}
 
@@ -192,6 +246,30 @@ export default function App() {
               <div className="offerNote">
                 Show this screen at Shark Fit Gym reception to claim your
                 discount.
+              </div>
+
+              <div className="gymInfo resultInfo">
+                <a
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="infoBtn"
+                >
+                  Instagram
+                </a>
+
+                <a
+                  href={locationUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="infoBtn"
+                >
+                  Location
+                </a>
+
+                <a href={`tel:${gymPhone}`} className="infoBtn">
+                  Call: {gymPhone}
+                </a>
               </div>
             </div>
           )}
