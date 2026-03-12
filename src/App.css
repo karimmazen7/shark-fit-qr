@@ -1,0 +1,433 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #000;
+  overflow-x: hidden;
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  overflow: hidden;
+}
+
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transform: scale(1.03);
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.58) 0%,
+      rgba(0, 0, 0, 0.45) 35%,
+      rgba(0, 0, 0, 0.58) 100%
+    ),
+    radial-gradient(circle at center, rgba(250, 204, 21, 0.08), transparent 45%);
+  z-index: 1;
+}
+
+.contentWrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 620px;
+  background: rgba(10, 10, 10, 0.72);
+  border: 1px solid rgba(250, 204, 21, 0.22);
+  border-radius: 28px;
+  padding: 34px 28px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(12px);
+  text-align: center;
+  color: white;
+}
+
+.logoWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.logo {
+  width: 120px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.badge {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #facc15, #f59e0b);
+  color: #111;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 64px;
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  margin: 0 0 26px;
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1.7;
+  font-size: 18px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.phoneField {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.phonePrefix {
+  min-width: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #facc15;
+  background: rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.input {
+  width: 100%;
+  padding: 18px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 18px;
+  outline: none;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.input:focus {
+  border-color: #facc15;
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.12);
+}
+
+.phoneInput {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.phoneInput:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.button {
+  width: 100%;
+  padding: 18px 16px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(90deg, #facc15, #f59e0b);
+  color: #111;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease;
+  box-shadow: 0 14px 30px rgba(245, 158, 11, 0.18);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.wheelSection {
+  text-align: center;
+}
+
+.wheelWrap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 28px auto 18px;
+}
+
+.pointer {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 28px solid #facc15;
+  z-index: 5;
+}
+
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 10px solid #facc15;
+  box-shadow:
+    0 0 0 10px rgba(255, 255, 255, 0.05),
+    0 20px 40px rgba(0, 0, 0, 0.4);
+  transition: transform 4s cubic-bezier(0.17, 0.67, 0.2, 1);
+  background: #111;
+}
+
+.slice {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  overflow: hidden;
+}
+
+.slice span {
+  position: absolute;
+  font-size: 16px;
+  font-weight: 900;
+  color: #111;
+  white-space: nowrap;
+}
+
+.slice1 {
+  top: 0;
+  left: 50%;
+  background: #facc15;
+}
+
+.slice1 span {
+  top: 36px;
+  left: 18px;
+}
+
+.slice2 {
+  top: 50%;
+  left: 50%;
+  background: #f59e0b;
+}
+
+.slice2 span {
+  top: 38px;
+  left: 14px;
+}
+
+.slice3 {
+  top: 50%;
+  left: 0;
+  background: #fde047;
+}
+
+.slice3 span {
+  top: 38px;
+  left: 28px;
+}
+
+.slice4 {
+  top: 0;
+  left: 0;
+  background: #fbbf24;
+}
+
+.slice4 span {
+  top: 36px;
+  left: 28px;
+}
+
+.spinBtn {
+  margin-top: 10px;
+}
+
+.offerCard {
+  margin-top: 8px;
+  padding: 26px 20px;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(250, 204, 21, 0.22),
+    rgba(245, 158, 11, 0.14)
+  );
+  border: 1px solid rgba(250, 204, 21, 0.35);
+  text-align: center;
+}
+
+.offerBadge {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #facc15;
+  color: #111;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.offerCard h2 {
+  margin: 0 0 8px;
+  font-size: 42px;
+  color: #fde047;
+  line-height: 1;
+}
+
+.offerText {
+  margin: 0 0 16px;
+  font-size: 21px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.offerPhoneBox {
+  margin: 0 auto 14px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.offerLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.offerPhoneBox strong {
+  font-size: 24px;
+  color: #fff;
+  word-break: break-word;
+}
+
+.offerNote {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 16px;
+  }
+
+  .bgLayer {
+    background-position: center center;
+  }
+
+  .card {
+    max-width: 100%;
+    padding: 26px 18px;
+    border-radius: 22px;
+  }
+
+  .logo {
+    width: 95px;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .phonePrefix {
+    min-width: 72px;
+    font-size: 15px;
+  }
+
+  .input,
+  .button {
+    font-size: 15px;
+    padding: 15px;
+  }
+
+  .wheelWrap {
+    width: 240px;
+    height: 240px;
+  }
+
+  .slice span {
+    font-size: 13px;
+  }
+
+  .offerCard h2 {
+    font-size: 32px;
+  }
+
+  .offerText {
+    font-size: 17px;
+  }
+
+  .offerPhoneBox strong {
+    font-size: 18px;
+  }
+}
