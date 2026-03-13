@@ -466,3 +466,56 @@ h1 {
 .resultInfo {
   margin-top: 18px;
 }
+
+.infoBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.infoIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.topBar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.languageSwitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(250, 204, 21, 0.2);
+  padding: 6px;
+  border-radius: 999px;
+}
+
+.langBtn {
+  border: none;
+  background: transparent;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.langBtn.active {
+  background: linear-gradient(90deg, #facc15, #f59e0b);
+  color: #111;
+}
+
+.rtl {
+  direction: rtl;
+}
+
+.rtl .topBar {
+  justify-content: flex-start;
+}
