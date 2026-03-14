@@ -53,9 +53,7 @@ export default function Login() {
     <div className="adminPage">
       <div className="adminCard">
         <h1 className="adminTitle">Admin Login</h1>
-        <p className="adminSubtitle">
-          Sign in with your Supabase admin account.
-        </p>
+        <p className="adminSubtitle">Sign in with your account.</p>
 
         <form onSubmit={handleLogin} className="adminForm">
           <input
