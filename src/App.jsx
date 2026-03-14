@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
 import { supabase } from "./supabase";
 import sharkLogo from "./assets/sharkLogo.png";
+import sharkLogo2 from "./assets/sharkLogo2.png";
 import backgroundGym from "./assets/backgroundGym.png";
+import backgroundGym2 from "./assets/backgroundGym2.png";
 import en from "./locales/en";
 import ar from "./locales/ar";
 import "./App.css";
@@ -78,15 +80,13 @@ export default function App() {
 
   const dict = lang === "ar" ? ar : en;
 
-  // ===== TEST MODE =====
-  const MAIN_SPIN_LIMIT = 100; // first 10 completed winners
-  const FREE_MONTH_LIMIT = 5; // only 2 free winners
-  const TOTAL_SPIN_LIMIT = 999999; // keep open for testing after 10
+  const MAIN_SPIN_LIMIT = 100;
+  const FREE_MONTH_LIMIT = 5;
+  const TOTAL_SPIN_LIMIT = 999999;
 
   const normalOfferKeys = ["cash100", "cash150", "cash200"];
   const freeMonthKey = "freeMonth";
   const afterLimitKey = "cash50";
-  const wheelOfferKeys = [...normalOfferKeys, freeMonthKey];
 
   const instagramUrl =
     "https://www.instagram.com/sharkfit_fitnessclub?igsh=MXVrcTk5NGtweTZwYg%3D%3D";
@@ -99,13 +99,10 @@ export default function App() {
     return dict.offers[wonOfferKey];
   }, [wonOfferKey, dict]);
 
-  const normalizeLocalEgyptPhone = (value) => {
-    return value.replace(/\D/g, "").slice(0, 10);
-  };
+  const normalizeLocalEgyptPhone = (value) =>
+    value.replace(/\D/g, "").slice(0, 10);
 
-  const isValidLocalEgyptPhone = (value) => {
-    return /^(10|11|12|15)\d{8}$/.test(value);
-  };
+  const isValidLocalEgyptPhone = (value) => /^(10|11|12|15)\d{8}$/.test(value);
 
   const handlePhoneChange = (e) => {
     const cleanValue = normalizeLocalEgyptPhone(e.target.value);
@@ -170,7 +167,6 @@ export default function App() {
     setIsSpinning(true);
 
     try {
-      // total completed winners
       const { count: totalSpins, error: totalError } = await supabase
         .from("shark_fit_leads")
         .select("id", { count: "exact", head: true })
@@ -178,9 +174,6 @@ export default function App() {
 
       if (totalError) throw totalError;
 
-      console.log("total completed spins:", totalSpins);
-
-      // total free month winners
       const { count: freeMonthWinnersCount, error: freeCountError } =
         await supabase
           .from("shark_fit_leads")
@@ -189,27 +182,22 @@ export default function App() {
 
       if (freeCountError) throw freeCountError;
 
-      console.log("free month winners count:", freeMonthWinnersCount);
-
       const completedSpins = totalSpins ?? 0;
       const freeCount = freeMonthWinnersCount ?? 0;
 
       let selectedOfferKey = null;
       let selectedIndex = 0;
 
-      // ===== first 10 winners =====
       if (completedSpins < MAIN_SPIN_LIMIT) {
         const spinsLeftIncludingCurrent = MAIN_SPIN_LIMIT - completedSpins;
         const freeLeftIncludingCurrent = FREE_MONTH_LIMIT - freeCount;
 
-        // If remaining spins == remaining free prizes, we MUST give free month now
         if (
           freeLeftIncludingCurrent > 0 &&
           spinsLeftIncludingCurrent === freeLeftIncludingCurrent
         ) {
           selectedOfferKey = freeMonthKey;
         } else if (freeLeftIncludingCurrent > 0) {
-          // Controlled probability so we end with exactly 2 free winners by spin 10
           const shouldGiveFree =
             Math.random() <
             freeLeftIncludingCurrent / spinsLeftIncludingCurrent;
@@ -223,7 +211,6 @@ export default function App() {
             selectedOfferKey = normalOfferKeys[randomIndex];
           }
         } else {
-          // Free month quota finished
           const randomIndex = Math.floor(
             Math.random() * normalOfferKeys.length,
           );
@@ -235,12 +222,9 @@ export default function App() {
         if (selectedOfferKey === "cash200") selectedIndex = 2;
         if (selectedOfferKey === "freeMonth") selectedIndex = 3;
       } else {
-        // ===== after first 10 winners =====
         selectedOfferKey = afterLimitKey;
         selectedIndex = 0;
       }
-
-      console.log("selectedOfferKey:", selectedOfferKey);
 
       const segmentAngle = 360 / 4;
       const targetAngle = selectedIndex * segmentAngle;
@@ -254,14 +238,10 @@ export default function App() {
           const currentOfferDict = lang === "ar" ? ar : en;
           const selectedOffer = currentOfferDict.offers[selectedOfferKey];
 
-          console.log("selectedOffer:", selectedOffer);
-          console.log("savedPhone:", savedPhone);
-
-          const { data: updatedRows, error: updateError } = await supabase
+          const { error: updateError } = await supabase
             .from("shark_fit_leads")
             .update({ discount: selectedOffer.discountValue })
-            .eq("phone_number", savedPhone)
-            .select();
+            .eq("phone_number", savedPhone);
 
           if (updateError) {
             console.error("update error:", updateError);
@@ -269,8 +249,6 @@ export default function App() {
             setIsSpinning(false);
             return;
           }
-
-          console.log("updated rows:", updatedRows);
 
           setWonOfferKey(selectedOfferKey);
           setStep("result");
@@ -280,7 +258,7 @@ export default function App() {
           alert(dict.somethingWrong);
           setIsSpinning(false);
         }
-      }, 4000);
+      }, 3200);
     } catch (error) {
       console.error("spinWheel error:", error);
       alert(dict.spinFailed);
@@ -289,15 +267,36 @@ export default function App() {
   };
 
   return (
-    <div
-      className="page"
-      dir="ltr"
-      style={{ backgroundImage: `url(${backgroundGym})` }}
-    >
-      <div className="overlay"></div>
+    <div className="page" dir="ltr">
+      <div className="bgMedia">
+        <img src={backgroundGym2} alt="Gym background" className="bgImage" />
+        <div className="bgShade" />
+      </div>
 
-      <div className="contentWrap">
-        <div className="card">
+      <div className="mainLayout">
+        <aside className="socialRail">
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="railBtn"
+          >
+            <InstagramIcon />
+          </a>
+          <a
+            href={locationUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="railBtn"
+          >
+            <LocationIcon />
+          </a>
+          <a href={`tel:${gymPhone}`} className="railBtn">
+            <PhoneIcon />
+          </a>
+        </aside>
+
+        <section className="leftPanel">
           <div className="topBar">
             <div className="languageSwitch">
               <button
@@ -317,75 +316,46 @@ export default function App() {
             </div>
           </div>
 
-          <div className="logoWrap">
-            <img src={sharkLogo} alt="Shark Fit Logo" className="logo" />
+          <div className="brandBlock">
+            <img src={sharkLogo2} alt="Shark Fit Logo" className="logo" />
+            <div className="sectionMini">{dict.badge}</div>
+            <h1>{step === "wheel" ? dict.wheelTitle : dict.formTitle}</h1>
+            <p className="subtitle">
+              {step === "wheel" ? dict.wheelSubtitle : dict.formSubtitle}
+            </p>
           </div>
 
           {step === "form" && (
-            <>
-              <div className="badge">{dict.badge}</div>
-
-              <h1>{dict.formTitle}</h1>
-              <p className="subtitle">{dict.formSubtitle}</p>
-
-              <form onSubmit={handleSubmit} className="form">
-                <div className="phoneField">
-                  <div className="phonePrefix">+20</div>
-                  <input
-                    type="tel"
-                    placeholder={dict.phonePlaceholder}
-                    value={phone}
-                    onChange={handlePhoneChange}
-                    className="input phoneInput"
-                    maxLength={10}
-                  />
-                </div>
-
-                <button type="submit" className="button" disabled={loading}>
-                  {loading ? dict.checking : dict.continueToSpin}
-                </button>
-              </form>
-
-              <div className="gymInfo">
-                <a
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="infoBtn"
-                >
-                  <InstagramIcon />
-                  <span>{dict.instagram}</span>
-                </a>
-
-                <a
-                  href={locationUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="infoBtn"
-                >
-                  <LocationIcon />
-                  <span>{dict.location}</span>
-                </a>
-
-                <a href={`tel:${gymPhone}`} className="infoBtn">
-                  <PhoneIcon />
-                  <span>{gymPhone}</span>
-                </a>
+            <form onSubmit={handleSubmit} className="form">
+              <div className="phoneField">
+                <div className="phonePrefix">+20</div>
+                <input
+                  type="tel"
+                  placeholder={dict.phonePlaceholder}
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  className="input phoneInput"
+                  maxLength={10}
+                />
               </div>
-            </>
+
+              <button
+                type="submit"
+                className="button primaryBtn"
+                disabled={loading}
+              >
+                {loading ? dict.checking : dict.continueToSpin}
+              </button>
+            </form>
           )}
 
           {step === "wheel" && (
             <div className="wheelSection">
-              <div className="badge">{dict.badge}</div>
-              <h1>{dict.wheelTitle}</h1>
-              <p className="subtitle">{dict.wheelSubtitle}</p>
-
               <div className="wheelWrap">
                 <div className="pointer"></div>
 
                 <div
-                  className={`wheel ${isSpinning ? "spinning" : ""}`}
+                  className="wheel"
                   style={{ transform: `rotate(${rotation}deg)` }}
                 >
                   <div className="slice slice1">
@@ -404,45 +374,18 @@ export default function App() {
               </div>
 
               <button
-                className="button spinBtn"
+                className="button primaryBtn spinBtn"
                 onClick={spinWheel}
                 disabled={isSpinning}
               >
                 {isSpinning ? dict.spinning : dict.spinNow}
               </button>
-
-              <div className="gymInfo">
-                <a
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="infoBtn"
-                >
-                  <InstagramIcon />
-                  <span>{dict.instagram}</span>
-                </a>
-
-                <a
-                  href={locationUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="infoBtn"
-                >
-                  <LocationIcon />
-                  <span>{dict.location}</span>
-                </a>
-
-                <a href={`tel:${gymPhone}`} className="infoBtn">
-                  <PhoneIcon />
-                  <span>{gymPhone}</span>
-                </a>
-              </div>
             </div>
           )}
 
           {step === "result" && wonOffer && (
-            <div className="offerCard">
-              <div className="offerBadge">{dict.youWon}</div>
+            <div className="resultPanel">
+              <div className="resultTag">{dict.youWon}</div>
               <h2>{wonOffer.resultTitle}</h2>
               <p className="offerText">{wonOffer.resultText}</p>
 
@@ -452,35 +395,43 @@ export default function App() {
               </div>
 
               <div className="offerNote">{dict.showScreen}</div>
-
-              <div className="gymInfo resultInfo">
-                <a
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="infoBtn"
-                >
-                  <InstagramIcon />
-                  <span>{dict.instagram}</span>
-                </a>
-
-                <a
-                  href={locationUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="infoBtn"
-                >
-                  <LocationIcon />
-                  <span>{dict.location}</span>
-                </a>
-
-                <a href={`tel:${gymPhone}`} className="infoBtn">
-                  <PhoneIcon />
-                  <span>{gymPhone}</span>
-                </a>
-              </div>
             </div>
           )}
+
+          <div className="contactRow">
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="contactPill"
+            >
+              <InstagramIcon />
+              <span>{dict.instagram}</span>
+            </a>
+
+            <a
+              href={locationUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="contactPill"
+            >
+              <LocationIcon />
+              <span>{dict.location}</span>
+            </a>
+
+            <a href={`tel:${gymPhone}`} className="contactPill">
+              <PhoneIcon />
+              <span>{gymPhone}</span>
+            </a>
+          </div>
+        </section>
+
+        <div className="locationFoot">
+          <LocationIcon />
+          <div>
+            <strong>Shark Fit Gym</strong>
+            <span>Rostom Basha St, Helwan</span>
+          </div>
         </div>
       </div>
     </div>
