@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { supabase } from "./supabase";
-import sharkLogo from "./assets/sharkLogo.png";
+//import sharkLogo from "./assets/sharkLogo.png";
 import sharkLogo2 from "./assets/sharkLogo2.png";
-import backgroundGym from "./assets/backgroundGym.png";
+//import backgroundGym from "./assets/backgroundGym.png";
 import backgroundGym2 from "./assets/backgroundGym2.png";
 import en from "./locales/en";
 import ar from "./locales/ar";
