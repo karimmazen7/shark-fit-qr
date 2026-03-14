@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabase";
-//import sharkLogo from "./assets/sharkLogo.png";
-import sharkLogo2 from "./assets/sharkLogo2.png";
-//import backgroundGym from "./assets/backgroundGym.png";
+import sharkLogo from "./assets/sharkLogo.png";
+// import sharkLogo2 from "./assets/sharkLogo2.png";
+// import backgroundGym from "./assets/backgroundGym.png";
 import backgroundGym2 from "./assets/backgroundGym2.png";
 import en from "./locales/en";
 import ar from "./locales/ar";
@@ -69,6 +70,8 @@ function PhoneIcon() {
 }
 
 export default function App() {
+  const navigate = useNavigate();
+
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [savedPhone, setSavedPhone] = useState("");
@@ -174,6 +177,12 @@ export default function App() {
 
       if (totalError) throw totalError;
 
+      if ((totalSpins ?? 0) >= TOTAL_SPIN_LIMIT) {
+        alert(dict.spinFailed);
+        setIsSpinning(false);
+        return;
+      }
+
       const { count: freeMonthWinnersCount, error: freeCountError } =
         await supabase
           .from("shark_fit_leads")
@@ -206,13 +215,13 @@ export default function App() {
             selectedOfferKey = freeMonthKey;
           } else {
             const randomIndex = Math.floor(
-              Math.random() * normalOfferKeys.length,
+              Math.random() * normalOfferKeys.length
             );
             selectedOfferKey = normalOfferKeys[randomIndex];
           }
         } else {
           const randomIndex = Math.floor(
-            Math.random() * normalOfferKeys.length,
+            Math.random() * normalOfferKeys.length
           );
           selectedOfferKey = normalOfferKeys[randomIndex];
         }
@@ -283,6 +292,7 @@ export default function App() {
           >
             <InstagramIcon />
           </a>
+
           <a
             href={locationUrl}
             target="_blank"
@@ -291,6 +301,7 @@ export default function App() {
           >
             <LocationIcon />
           </a>
+
           <a href={`tel:${gymPhone}`} className="railBtn">
             <PhoneIcon />
           </a>
@@ -317,7 +328,7 @@ export default function App() {
           </div>
 
           <div className="brandBlock">
-            <img src={sharkLogo2} alt="Shark Fit Logo" className="logo" />
+            <img src={sharkLogo} alt="Shark Fit Logo" className="logo" />
             <div className="sectionMini">{dict.badge}</div>
             <h1>{step === "wheel" ? dict.wheelTitle : dict.formTitle}</h1>
             <p className="subtitle">
@@ -359,16 +370,28 @@ export default function App() {
                   style={{ transform: `rotate(${rotation}deg)` }}
                 >
                   <div className="slice slice1">
-                    <span>{dict.offers.cash100.wheelLabel}</span>
+                    <span className="wheelText wheelText1">
+                      {dict.offers.cash100.wheelLabel}
+                    </span>
                   </div>
+
                   <div className="slice slice2">
-                    <span>{dict.offers.cash150.wheelLabel}</span>
+                    <span className="wheelText wheelText2">
+                      {dict.offers.cash150.wheelLabel}
+                    </span>
                   </div>
+
                   <div className="slice slice3">
-                    <span>{dict.offers.cash200.wheelLabel}</span>
+                    <span className="wheelText wheelText3">
+                      {dict.offers.cash200.wheelLabel}
+                    </span>
                   </div>
+
                   <div className="slice slice4">
-                    <span>{dict.offers.freeMonth.wheelLabel}</span>
+                    <span className="wheelText wheelText4">
+                      <span className="wheelTextLine">1 MONTH</span>
+                      <span className="wheelTextLine">FREE</span>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -432,6 +455,15 @@ export default function App() {
             <strong>Shark Fit Gym</strong>
             <span>Rostom Basha St, Helwan</span>
           </div>
+
+          <button
+            className="adminLock"
+            onClick={() => navigate("/login")}
+            title="Admin Login"
+            type="button"
+          >
+            🔒
+          </button>
         </div>
       </div>
     </div>

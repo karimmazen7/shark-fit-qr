@@ -318,23 +318,38 @@ h1 {
   overflow: hidden;
 }
 
-.slice span {
+.wheelText {
   position: absolute;
-  font-size: 14px;
-  font-weight: 800;
-  color: #fff;
+  color: #ffffff;
+  font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.22),
+    0 2px 12px rgba(0, 0, 0, 0.18);
   white-space: nowrap;
 }
 
+.wheelText4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: normal;
+  width: 110px;
+}
+
+.wheelTextLine {
+  display: block;
+}
+
+/* slices */
 .slice1 {
   top: 0;
   left: 50%;
   background: #226aff;
-}
-
-.slice1 span {
-  top: 34px;
-  left: 18px;
 }
 
 .slice2 {
@@ -343,20 +358,10 @@ h1 {
   background: #174fc9;
 }
 
-.slice2 span {
-  top: 38px;
-  left: 16px;
-}
-
 .slice3 {
   top: 50%;
   left: 0;
   background: #0f3ea9;
-}
-
-.slice3 span {
-  top: 38px;
-  left: 28px;
 }
 
 .slice4 {
@@ -365,9 +370,47 @@ h1 {
   background: #2e7fff;
 }
 
-.slice4 span {
+/* text positions */
+.slice1 .wheelText {
   top: 34px;
+  left: 26px;
+}
+
+.slice2 .wheelText {
+  top: 40px;
   left: 18px;
+}
+
+.slice3 .wheelText {
+  top: 40px;
+  left: 28px;
+}
+
+.slice4 .wheelText {
+  top: 28px;
+  left: 38px;
+}
+
+/* Better text placement inside each quarter */
+.wheelText1 {
+  top: 38px;
+  left: 32px;
+}
+
+.wheelText2 {
+  top: 40px;
+  left: 22px;
+}
+
+.wheelText3 {
+  top: 42px;
+  left: 34px;
+}
+
+.wheelText4 {
+  top: 26px;
+  left: 18px;
+  width: 108px;
 }
 
 .spinBtn {
@@ -593,4 +636,252 @@ h1 {
     flex-direction: column;
     align-items: center;
   }
+}
+
+/* ADMIN LOGIN */
+
+.adminPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(10, 16, 28, 0.96), rgba(12, 22, 42, 0.92)),
+    radial-gradient(
+      circle at top left,
+      rgba(35, 105, 255, 0.18),
+      transparent 30%
+    );
+}
+
+.adminCard {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(10, 15, 24, 0.88);
+  border: 1px solid rgba(47, 130, 255, 0.2);
+  border-radius: 20px;
+  padding: 30px 24px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+}
+
+.adminTitle {
+  margin: 0 0 10px;
+  font-size: 34px;
+  line-height: 1.05;
+  text-transform: none;
+}
+
+.adminSubtitle {
+  margin: 0 0 22px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+}
+
+.adminForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.adminInput {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  padding: 15px 16px;
+  border-radius: 14px;
+  outline: none;
+  font-size: 15px;
+}
+
+.adminInput::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.adminInput:focus {
+  border-color: rgba(47, 130, 255, 0.5);
+  box-shadow: 0 0 0 4px rgba(47, 130, 255, 0.12);
+}
+
+.adminButton {
+  border: none;
+  background: linear-gradient(180deg, #2f82ff, #1358eb);
+  color: #fff;
+  padding: 15px 16px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.adminError {
+  margin-top: 4px;
+  color: #ff8f8f;
+  font-size: 14px;
+}
+
+/* DATA PAGE */
+
+.dataPage {
+  min-height: 100vh;
+  padding: 28px;
+  background:
+    linear-gradient(135deg, rgba(10, 16, 28, 0.96), rgba(12, 22, 42, 0.92)),
+    radial-gradient(
+      circle at top left,
+      rgba(35, 105, 255, 0.18),
+      transparent 30%
+    );
+}
+
+.dataHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.dataTitle {
+  margin: 0 0 8px;
+  font-size: 38px;
+  line-height: 1.05;
+  text-transform: none;
+}
+
+.dataSubtitle {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.dataHeaderActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.refreshBtn,
+.logoutBtn {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.refreshBtn {
+  background: #2f82ff;
+  color: #fff;
+}
+
+.logoutBtn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(47, 130, 255, 0.18);
+  background: rgba(10, 15, 24, 0.84);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.dataTable th,
+.dataTable td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dataTable th {
+  background: rgba(255, 255, 255, 0.04);
+  color: #8eb4ff;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.dataTable td {
+  color: #fff;
+  font-size: 15px;
+}
+
+.dataTable tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.emptyRow {
+  text-align: center !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dataMessage,
+.dataError {
+  padding: 18px 20px;
+  border-radius: 16px;
+  max-width: 500px;
+}
+
+.dataMessage {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dataError {
+  background: rgba(255, 80, 80, 0.12);
+  color: #ffadad;
+}
+
+@media (max-width: 768px) {
+  .adminTitle {
+    font-size: 28px;
+  }
+
+  .dataPage {
+    padding: 18px;
+  }
+
+  .dataTitle {
+    font-size: 30px;
+  }
+}
+
+.adminLock {
+  margin-left: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(47, 130, 255, 0.3);
+  background: rgba(15, 20, 30, 0.8);
+  color: #2f82ff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adminBackButton {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  padding: 15px 16px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.adminBackButton:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
