@@ -328,7 +328,6 @@ h1 {
   left: 50%;
   background: #226aff;
 }
-
 .slice1 span {
   top: 34px;
   left: 18px;
@@ -339,7 +338,6 @@ h1 {
   left: 50%;
   background: #174fc9;
 }
-
 .slice2 span {
   top: 38px;
   left: 16px;
@@ -350,7 +348,6 @@ h1 {
   left: 0;
   background: #0f3ea9;
 }
-
 .slice3 span {
   top: 38px;
   left: 28px;
@@ -361,7 +358,6 @@ h1 {
   left: 0;
   background: #2e7fff;
 }
-
 .slice4 span {
   top: 34px;
   left: 18px;
@@ -513,7 +509,6 @@ h1 {
   .mainLayout {
     grid-template-columns: 1fr;
     gap: 18px;
-    padding: 20px 18px 24px 18px;
   }
 
   .socialRail {
@@ -574,18 +569,8 @@ h1 {
   }
 
   .locationFoot {
-    position: static;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 22px;
-    padding-bottom: 10px;
-    text-align: center;
-  }
-
-  .locationFoot > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    right: 18px;
+    left: 18px;
+    bottom: 18px;
   }
 }
