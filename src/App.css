@@ -6,8 +6,8 @@ html,
 body,
 #root {
   margin: 0;
-  min-height: 100%;
   width: 100%;
+  min-height: 100vh;
 }
 
 body {
@@ -23,26 +23,31 @@ a {
 
 .page {
   position: relative;
-  min-height: 100vh;
   width: 100%;
+  min-height: 100vh;
   overflow: hidden;
   background: #171c27;
 }
 
+/* BACKGROUND */
+
 .bgMedia {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 0;
+  overflow: hidden;
 }
 
 .bgImage {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   object-position: center;
-  filter: saturate(0.9) brightness(0.45);
+  filter: saturate(0.9) brightness(0.48);
 }
 
 .bgShade {
@@ -51,17 +56,19 @@ a {
   background:
     linear-gradient(
       90deg,
-      rgba(10, 16, 28, 0.92) 0%,
-      rgba(10, 16, 28, 0.78) 32%,
-      rgba(10, 16, 28, 0.48) 58%,
-      rgba(10, 16, 28, 0.62) 100%
+      rgba(10, 16, 28, 0.84) 0%,
+      rgba(10, 16, 28, 0.68) 32%,
+      rgba(10, 16, 28, 0.38) 58%,
+      rgba(10, 16, 28, 0.52) 100%
     ),
     radial-gradient(
       circle at 25% 50%,
-      rgba(35, 105, 255, 0.18),
+      rgba(35, 105, 255, 0.14),
       transparent 35%
     );
 }
+
+/* LAYOUT */
 
 .mainLayout {
   position: relative;
@@ -75,6 +82,8 @@ a {
   align-items: center;
   padding: 28px 40px 90px 28px;
 }
+
+/* SOCIAL ICON RAIL */
 
 .socialRail {
   display: flex;
@@ -103,6 +112,8 @@ a {
   box-shadow: 0 0 22px rgba(43, 116, 255, 0.18);
 }
 
+/* LEFT PANEL */
+
 .leftPanel {
   max-width: 620px;
   padding: 10px 0;
@@ -113,6 +124,8 @@ a {
   justify-content: flex-end;
   margin-bottom: 18px;
 }
+
+/* LANGUAGE SWITCH */
 
 .languageSwitch {
   display: inline-flex;
@@ -141,6 +154,8 @@ a {
   color: #fff;
   box-shadow: 0 0 18px rgba(37, 97, 255, 0.32);
 }
+
+/* BRAND */
 
 .brandBlock {
   margin-bottom: 26px;
@@ -195,6 +210,8 @@ h1 {
   font-size: 17px;
 }
 
+/* FORM */
+
 .form {
   display: flex;
   flex-direction: column;
@@ -207,8 +224,6 @@ h1 {
   display: flex;
   align-items: stretch;
   width: 100%;
-  border-radius: 0;
-  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(9, 13, 22, 0.48);
 }
@@ -239,11 +254,12 @@ h1 {
   color: rgba(255, 255, 255, 0.28);
 }
 
+/* BUTTON */
+
 .primaryBtn {
   width: 100%;
   max-width: 520px;
   border: none;
-  outline: none;
   cursor: pointer;
   padding: 18px 20px;
   border-radius: 999px;
@@ -254,9 +270,6 @@ h1 {
   letter-spacing: 2px;
   text-transform: uppercase;
   box-shadow: 0 16px 34px rgba(28, 85, 225, 0.28);
-  transition:
-    transform 0.18s ease,
-    opacity 0.18s ease;
 }
 
 .primaryBtn:hover {
@@ -265,176 +278,9 @@ h1 {
 
 .primaryBtn:disabled {
   opacity: 0.72;
-  cursor: not-allowed;
 }
 
-.wheelSection {
-  width: 100%;
-  max-width: 520px;
-}
-
-.wheelWrap {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 10px 0 24px;
-}
-
-.pointer {
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 28px solid #2f82ff;
-  z-index: 5;
-  filter: drop-shadow(0 0 10px rgba(47, 130, 255, 0.35));
-}
-
-.wheel {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
-  border: 10px solid #205fe7;
-  background: #0f1420;
-  box-shadow:
-    0 0 0 10px rgba(47, 130, 255, 0.08),
-    0 20px 40px rgba(0, 0, 0, 0.35);
-  transition: transform 3.2s cubic-bezier(0.17, 0.67, 0.2, 1);
-}
-
-.slice {
-  position: absolute;
-  width: 50%;
-  height: 50%;
-  overflow: hidden;
-}
-
-.slice span {
-  position: absolute;
-  font-size: 14px;
-  font-weight: 800;
-  color: #fff;
-  white-space: nowrap;
-}
-
-.slice1 {
-  top: 0;
-  left: 50%;
-  background: #226aff;
-}
-
-.slice1 span {
-  top: 34px;
-  left: 18px;
-}
-
-.slice2 {
-  top: 50%;
-  left: 50%;
-  background: #174fc9;
-}
-
-.slice2 span {
-  top: 38px;
-  left: 16px;
-}
-
-.slice3 {
-  top: 50%;
-  left: 0;
-  background: #0f3ea9;
-}
-
-.slice3 span {
-  top: 38px;
-  left: 28px;
-}
-
-.slice4 {
-  top: 0;
-  left: 0;
-  background: #2e7fff;
-}
-
-.slice4 span {
-  top: 34px;
-  left: 18px;
-}
-
-.spinBtn {
-  margin-top: 6px;
-}
-
-.resultPanel {
-  width: 100%;
-  max-width: 520px;
-  border: 1px solid rgba(47, 130, 255, 0.25);
-  background: rgba(10, 15, 24, 0.68);
-  padding: 26px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.25);
-}
-
-.resultTag {
-  display: inline-block;
-  margin-bottom: 16px;
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #2f82ff, #1559ec);
-  color: #fff;
-  font-weight: 800;
-  letter-spacing: 2px;
-  font-size: 12px;
-}
-
-.resultPanel h2 {
-  margin: 0 0 14px;
-  font-size: 48px;
-  line-height: 1.05;
-  text-transform: uppercase;
-  color: #fff;
-}
-
-.offerText {
-  margin: 0 0 20px;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-.offerPhoneBox {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(7, 10, 18, 0.72);
-  padding: 18px;
-  margin-bottom: 16px;
-}
-
-.offerLabel {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.offerPhoneBox strong {
-  font-size: 38px;
-  color: #fff;
-  letter-spacing: 1px;
-}
-
-.offerNote {
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 15px;
-  line-height: 1.7;
-}
+/* CONTACT BUTTONS */
 
 .contactRow {
   display: flex;
@@ -455,14 +301,13 @@ h1 {
   align-items: center;
   gap: 10px;
   font-weight: 700;
-  transition: 0.18s ease;
 }
 
 .contactPill:hover {
   transform: translateY(-1px);
-  border-color: rgba(47, 130, 255, 0.5);
-  box-shadow: 0 0 18px rgba(47, 130, 255, 0.16);
 }
+
+/* LOCATION FOOT */
 
 .locationFoot {
   position: fixed;
@@ -492,42 +337,28 @@ h1 {
   font-size: 14px;
 }
 
+/* ICON */
+
 .infoIcon {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
 }
 
-@media (max-width: 900px) {
-  .mainLayout {
-    grid-template-columns: 56px 1fr;
-    padding: 20px 20px 110px 20px;
-  }
-
-  h1 {
-    font-size: 52px;
-  }
-}
+/* MOBILE */
 
 @media (max-width: 768px) {
   .mainLayout {
     grid-template-columns: 1fr;
     gap: 18px;
     padding: 20px 18px 24px 18px;
+    min-height: 100vh;
   }
 
   .socialRail {
     flex-direction: row;
     justify-content: center;
     order: 3;
-  }
-
-  .leftPanel {
-    max-width: 100%;
-  }
-
-  .topBar {
-    justify-content: center;
   }
 
   .brandBlock {
@@ -539,11 +370,6 @@ h1 {
     margin-right: auto;
   }
 
-  .sectionMini::before {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
   h1 {
     font-size: 42px;
   }
@@ -553,25 +379,11 @@ h1 {
     margin-right: auto;
   }
 
-  .form,
-  .wheelSection,
-  .resultPanel {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .wheelWrap {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .contactRow {
     justify-content: center;
   }
 
-  .offerPhoneBox strong {
-    font-size: 28px;
-  }
+  /* LOCATION NEW ROW */
 
   .locationFoot {
     position: static;
@@ -579,7 +391,6 @@ h1 {
     display: flex;
     justify-content: center;
     margin-top: 22px;
-    padding-bottom: 10px;
     text-align: center;
   }
 
