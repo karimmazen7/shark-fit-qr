@@ -95,7 +95,7 @@ export default function App() {
     "https://www.instagram.com/sharkfit_fitnessclub?igsh=MXVrcTk5NGtweTZwYg%3D%3D";
   const locationUrl =
     "https://www.google.com/maps/place/Shark+Fit+Gym/@29.8445423,31.3292541,17z/data=!3m1!4b1!4m6!3m5!1s0x145837002c223e77:0xf7c35a34d13a641a!8m2!3d29.8445423!4d31.3292541!16s%2Fg%2F11mdsyjhwz?entry=ttu&g_ep=EgoyMDI2MDMwOS4wIKXMDSoASAFQAw%3D%3D";
-  const gymPhone = "01060106402";
+  const gymPhone = "01127002999";
 
   const wonOffer = useMemo(() => {
     if (!wonOfferKey) return null;
@@ -215,13 +215,13 @@ export default function App() {
             selectedOfferKey = freeMonthKey;
           } else {
             const randomIndex = Math.floor(
-              Math.random() * normalOfferKeys.length
+              Math.random() * normalOfferKeys.length,
             );
             selectedOfferKey = normalOfferKeys[randomIndex];
           }
         } else {
           const randomIndex = Math.floor(
-            Math.random() * normalOfferKeys.length
+            Math.random() * normalOfferKeys.length,
           );
           selectedOfferKey = normalOfferKeys[randomIndex];
         }
@@ -459,10 +459,10 @@ export default function App() {
           <button
             className="adminLock"
             onClick={() => navigate("/login")}
-            title="Admin Login"
+            title=""
             type="button"
           >
-            🔒
+            💪
           </button>
         </div>
       </div>

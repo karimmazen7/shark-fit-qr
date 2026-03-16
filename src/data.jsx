@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabase";
+import * as XLSX from "xlsx";
 import "./App.css";
 
 export default function Data() {
@@ -120,6 +121,50 @@ export default function Data() {
     return Object.entries(groups).sort((a, b) => b[0].localeCompare(a[0]));
   }, [filteredRows]);
 
+  const formatRowsForExcel = (data) => {
+    return data.map((row) => ({
+      ID: row.id,
+      "Phone Number": row.phone_number || "",
+      Discount: row.discount || "",
+      "Created At": new Date(row.created_at).toLocaleString(),
+      Date: new Date(row.created_at).toLocaleDateString("en-CA"),
+    }));
+  };
+
+  const exportToExcel = (data, fileName) => {
+    if (!data || data.length === 0) {
+      alert("No data to export.");
+      return;
+    }
+
+    const worksheet = XLSX.utils.json_to_sheet(formatRowsForExcel(data));
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
+
+    worksheet["!cols"] = [
+      { wch: 10 },
+      { wch: 20 },
+      { wch: 15 },
+      { wch: 24 },
+      { wch: 14 },
+    ];
+
+    XLSX.writeFile(workbook, `${fileName}.xlsx`);
+  };
+
+  const handleExportAll = () => {
+    exportToExcel(rows, "shark-fit-leads-all");
+  };
+
+  const handleExportFiltered = () => {
+    exportToExcel(filteredRows, "shark-fit-leads-filtered");
+  };
+
+  const handleExportDay = (dayKey, items) => {
+    exportToExcel(items, `shark-fit-leads-${dayKey}`);
+  };
+
   return (
     <div className="dataPage">
       <div className="dataHeader">
@@ -131,9 +176,21 @@ export default function Data() {
         </div>
 
         <div className="dataHeaderActions">
+          <button className="exportBtn" onClick={handleExportAll}>
+            Export All
+          </button>
+
+          <button
+            className="exportBtn secondaryExportBtn"
+            onClick={handleExportFiltered}
+          >
+            Export Results
+          </button>
+
           <button className="refreshBtn" onClick={fetchRows}>
             Refresh
           </button>
+
           <button className="logoutBtn" onClick={handleLogout}>
             Logout
           </button>
@@ -190,10 +247,20 @@ export default function Data() {
           {groupedRows.map(([dayKey, group]) => (
             <div className="daySection" key={dayKey}>
               <div className="daySectionHeader">
-                <h2 className="dayTitle">{group.label}</h2>
-                <span className="dayCount">
-                  {group.items.length} lead{group.items.length !== 1 ? "s" : ""}
-                </span>
+                <div>
+                  <h2 className="dayTitle">{group.label}</h2>
+                  <span className="dayCount">
+                    {group.items.length} lead
+                    {group.items.length !== 1 ? "s" : ""}
+                  </span>
+                </div>
+
+                <button
+                  className="dayExportBtn"
+                  onClick={() => handleExportDay(dayKey, group.items)}
+                >
+                  Export Day
+                </button>
               </div>
 
               <div className="tableWrap">

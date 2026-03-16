@@ -2,11 +2,11 @@ const en = {
   badge: "SHARK FIT",
   formTitle: "Spin & Win Offer",
   formSubtitle:
-    "Enter your phone number to spin the wheel and win a special Shark Fit Gym prize.",
+    "Enter your valid phone number (you must be the owner of the number) to spin the wheel and get a chance to win a special prize from Shark Fit Gym.",
   wheelTitle: "Spin the Wheel",
   wheelSubtitle:
     "Tap the button and discover your special Shark Fit Gym prize.",
-  phonePlaceholder: "1012345678",
+  phonePlaceholder: "101234567X",
   continueToSpin: "Continue to Spin",
   checking: "Checking...",
   spinNow: "SPIN NOW",

@@ -966,3 +966,37 @@ h1 {
   padding: 6px 10px;
   border-radius: 999px;
 }
+
+.exportBtn,
+.dayExportBtn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+.exportBtn {
+  padding: 10px 14px;
+  background: #198754;
+  color: #fff;
+}
+
+.exportBtn:hover {
+  opacity: 0.92;
+}
+
+.secondaryExportBtn {
+  background: #0d6efd;
+}
+
+.dayExportBtn {
+  padding: 8px 12px;
+  background: #198754;
+  color: #fff;
+}
+
+.dayExportBtn:hover {
+  opacity: 0.92;
+}
